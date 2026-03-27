@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Kernel Patches - ModExpo</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Kernel Patches";
+        var mkdocs_page_input_path = "guides\\x360-reversing\\page4.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> ModExpo
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../about/">About</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">GGX</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ggx/home/">Home</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ggx/core/">Core</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Scripting</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/luagg/">Luascript</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/pygg/">Python</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Components</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/patcher/">Patcher</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/builder/">Builder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/excrypt/">Crypto</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/compression/">Compression</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" >X360 Reversing</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../intro/">Intro</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page1/">CB_B Patches</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page2/">CD Patches</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page3/">HV Patches (Missing)</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Kernel Patches</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#disclaimer">Disclaimer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#intro">Intro</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-1">Patch #1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-2">Patch #2</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-3">Patch #3</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-4">Patch #4</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-5">Patch #5</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-6">Patch #6</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-7">Patch #7</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-8">Patch #8</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-9">Patch #9</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patches-101120">Patches #10,#11...,#20</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-21">Patch #21</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-22">Patch #22</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-23">Patch #23</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#patch-24">Patch #24</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#credits">Credits</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page5/">Miscellaneous Kernel Patches</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page6/">Find and patch Kernel Errors</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page7/">Setting up Syscall table</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../outro/">Outro</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">ModExpo</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Guides</li>
+          <li class="breadcrumb-item">X360 Reversing</li>
+      <li class="breadcrumb-item active">Kernel Patches</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="chapter-4-kernel-patches">Chapter 4: Kernel Patches</h1>
+<p>By <strong>DrSchottky</strong> - 10-10-2015
+Original Page (Internet Archive): <a href="https://web.archive.org/web/20240221004844/http://www.razielconsole.com:80/forum/guide-e-tutorial-xbox-360/956-[x360-reversing]-chapter-4-kernel-patches.html">RaizelConsole</a></p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>All the stuff i'll write comes from what i read and/or reversed. It might be inaccurate or totally wrong, please don't blame me for this.</p>
+<hr />
+<h2 id="intro">Intro</h2>
+<p>Ok, things start to get interesting. I originally planned to write a single thread for HV + Kernel pacthes, but i realized that there would be too many things to write, making the thread chaotic.</p>
+<p>In this chapter i'll try to understand and explain Kernel pacthes that, in brief, remove XEXs' security measures and (some) DVD drive checks.</p>
+<p><strong>How can we split HV and Kernel?</strong> Take your CE+CG (decompressed, decrypted etc etc):</p>
+<ul>
+<li>HV: begin - <code>0x3FFFF</code> (the first 256KB)</li>
+<li>Kernel: <code>0x40000</code> - end</li>
+</ul>
+<p>Patches mainly spoofs value returned by functions, so i'll not go into details.</p>
+<p>This is the patchset for Kernel 16574</p>
+<h2 id="patch-1">Patch #1</h2>
+<p><code>00 07 B1 50 00 00 00 02 38 60 00 00 4E 80 00 20</code></p>
+<p>Forces <code>XexpConvertError</code> to return 0, whatever r3's value is.</p>
+<h2 id="patch-2">Patch #2</h2>
+<p><code>00 07 BC E8 00 00 00 01 38 60 00 01</code></p>
+<p>Replace <code>XexpVerifyMediaType</code> call with <code>li r3, 1</code>, allowing XEX booting from any media.</p>
+<h2 id="patch-3">Patch #3</h2>
+<p><code>00 07 BD F8 00 00 00 01 38 60 00 00</code></p>
+<p>Replace <code>RtlImageXexHeaderString</code> call with <code>li r3, 0</code>.</p>
+<h2 id="patch-4">Patch #4</h2>
+<p><code>00 07 BE 60 00 00 00 01 39 60 00 00</code></p>
+<p><code>li r11, 0</code></p>
+<h2 id="patch-5">Patch #5</h2>
+<p><code>00 07 BE B0 00 00 00 01 39 60 00 00</code></p>
+<p><code>li r11, 0</code></p>
+<h2 id="patch-6">Patch #6</h2>
+<p><code>00 07 A7 38 00 00 00 02 38 60 00 00 4E 80 00 20</code></p>
+<p><code>XexpVerifyMinimumVersion</code> returns immediatly <code>0</code>.</p>
+<h2 id="patch-7">Patch #7</h2>
+<p><code>00 09 44 28 00 00 00 01 3A E0 00 10</code></p>
+<p>Modifies the value of a register in <code>SfcxInspectLargeDataBlock</code>. Maybe something related to flash layout(dunno).</p>
+<h2 id="patch-8">Patch #8</h2>
+<p><code>00 09 8D 80 00 00 00 01 2B 0B 00 FF</code></p>
+<p>In <code>SataCdRomAuthenticationExInitialize</code> compares r11 with FF instead of 1, altering branch path.</p>
+<h2 id="patch-9">Patch #9</h2>
+<p><code>00 09 87 64 00 00 00 05 38 60 00 00 60 00 00 00 60 00 00 00 60 00 00 00 60 00 00 00</code></p>
+<p>Removes <code>E66</code> from <code>SataCdRomActivateHCDFRuntimePatch</code>.</p>
+<h2 id="patches-101120">Patches #10,#11...,#20</h2>
+<p>They all do the same thing: after stack frame init they set r3 (0 or 1) and return.
+Target functions are:</p>
+<ul>
+<li><code>XeKeysVerifyRSASignature</code></li>
+<li><code>XeKeysSecurityConvertError</code></li>
+<li><code>XeKeysDvdAuthExConvertError</code></li>
+<li><code>_XeKeysRevokeIsValid</code></li>
+<li><code>XeKeysRevokeIsRevoked</code></li>
+<li><code>_XeKeysRevokeIsRevoked</code></li>
+<li><code>XeKeysRevokeIsDeviceRevoked</code></li>
+<li><code>XeKeysRevokeConvertError</code></li>
+<li><code>XeKeysConsoleSignatureVerification</code> (for this one the patch is a little different, but nevermind)</li>
+<li><code>XeCryptBnQwBeSigVerify</code></li>
+<li><code>SataDiskAuthenticateDevice</code></li>
+</ul>
+<h2 id="patch-21">Patch #21</h2>
+<p>It's a payload placed into the almost "dead" body of <code>SataDiskAuthenticateDevice</code>. This code will be called by subsequent patches.</p>
+<h2 id="patch-22">Patch #22</h2>
+<p><code>00 06 13 D0 00 00 00 01 48 0F 8F 01</code></p>
+<p>After XAM init branches to the first chunk of the payload which loads <code>launch.xex</code>.</p>
+<h2 id="patch-23">Patch #23</h2>
+<p><code>00 07 CF 68 00 00 00 01 48 0D D3 A5</code></p>
+<p><code>XexLoadExecutable</code> is patched to <code>bl</code> to the second chunk of the payload. TBH i don't know what kind of black magic it does.</p>
+<h2 id="patch-24">Patch #24</h2>
+<p><code>00 10 9C 78 00 00 00 01 48 05 06 BC</code></p>
+<p><code>XeKeysGetKeyProperties</code> is a wrapper for <code>HvxKeysGetKeyProperties</code>.
+It branches to the third chunk of our payload (instead of <code>HvxKeysGetKeyProperties</code>) and, if function's argument is equal to <code>0x14</code> it does the same black magic of <a href="./#patch-23">Patch #23</a> (keeps reading data at <code>0x12345678</code> until it's <code>0</code>, dunno why).</p>
+<hr />
+<p><a href="../page5/">&gt;&gt; Next Chapter &gt;&gt;</a></p>
+<h2 id="credits">Credits</h2>
+<ul>
+<li>xeBuild Team</li>
+<li>Free60</li>
+<li>RGLoader</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../page3/" class="btn btn-neutral float-left" title="HV Patches (Missing)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../page5/" class="btn btn-neutral float-right" title="Miscellaneous Kernel Patches">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../page3/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../page5/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

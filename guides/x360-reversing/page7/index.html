@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Setting up Syscall table - ModExpo</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Setting up Syscall table";
+        var mkdocs_page_input_path = "guides\\x360-reversing\\page7.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> ModExpo
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../about/">About</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">GGX</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ggx/home/">Home</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../ggx/core/">Core</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Scripting</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/luagg/">Luascript</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/pygg/">Python</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Components</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/patcher/">Patcher</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/builder/">Builder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/excrypt/">Crypto</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../ggx/compression/">Compression</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" >X360 Reversing</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../intro/">Intro</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page1/">CB_B Patches</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page2/">CD Patches</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page3/">HV Patches (Missing)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page4/">Kernel Patches</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page5/">Miscellaneous Kernel Patches</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../page6/">Find and patch Kernel Errors</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Setting up Syscall table</a>
+    <ul class="current">
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../outro/">Outro</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">ModExpo</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Guides</li>
+          <li class="breadcrumb-item">X360 Reversing</li>
+      <li class="breadcrumb-item active">Setting up Syscall table</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="chapter-7-setting-up-syscall-table">Chapter 7: Setting up Syscall table</h2>
+<p>By <strong>DrSchottky</strong> - 10-10-2015
+Original Page (Internet Archive): <a href="https://web.archive.org/web/20230201182301/http://www.razielconsole.com:80/forum/guide-e-tutorial-xbox-360/943-[x360-reversing]-intro.html">RaizelConsole</a></p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>All the stuff i'll write comes from what i read and/or reversed. It might be inaccurate or totally wrong, please don't blame me for this.</p>
+<hr />
+<p>Syscalls are the mechanism used by unprivileged code (like Kernel) to request functionalities to privileged code (HyperVisor).</p>
+<p>HV is the most privileged code running on your system: it manages memory access, encryption and low-level security.</p>
+<p>Syscalls are invoked by unprivileged code writing in <code>r0</code> the number of the required Syscall (from <code>0x00</code> to <code>0xDEPENDS_ON_KERNEL</code>) and executing <code>sc</code> instruction.</p>
+<p><code>sc</code> throws an exception that is catched and moves execution to <code>0xc00</code>. At that address there's the syscall dispatcher that, after checking <code>r0</code> validity, looks in sycall table for the effective address of the required syscall and jump to it.</p>
+<p>Syscall table start address is a dword located at <code>0x48</code> (HV header) so, to get the address of a syscall implementation you have too look at <code>sctable_start_address+(syscall number * 4)</code>.</p>
+<p>Syscall table is a simple list of sequential 32 bit addresses, ordered by syscall number (ascending).</p>
+<p>This is the sctable for HV 12625. As you can see syscall #0 is at <code>0x1F20</code>, syscall #1 at <code>0x8B4</code> etc etc..</p>
+<p><strong>MISSING: syscall.png</strong></p>
+<p>In newer Kernels syscall addressing changes a bit: for some syscalls the address in the table doesn't lead to syscall implementation, but to a code snippet then dinamically create the "real" address.</p>
+<hr />
+<p><a href="../outro/">&gt;&gt; Outro &gt;&gt;</a></p>
+<h2 id="credits">Credits</h2>
+<ul>
+<li>xeBuild Team</li>
+<li>Free60</li>
+<li>RGLoader</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../page6/" class="btn btn-neutral float-left" title="Find and patch Kernel Errors"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../outro/" class="btn btn-neutral float-right" title="Outro">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../page6/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../outro/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
