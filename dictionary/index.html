@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../about/">
       
       
-        <link rel="next" href="../dictionary/">
+        <link rel="next" href="../gxBuild/home/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>About - GGX-Project</title>
+        <title>Dictionary - GGX-Project</title>
       
     
     
@@ -63,11 +63,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#about" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -100,7 +95,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              About
+              Dictionary
             
           </span>
         </div>
@@ -220,19 +215,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
         
   
   
@@ -248,7 +234,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -257,10 +242,17 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../dictionary/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -276,6 +268,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -991,8 +984,6 @@
   
   
   
-    
-  
   
 </nav>
                   </div>
@@ -1009,7 +1000,78 @@
 
 
 
-<h1 id="about">About</h1>
+  <h1>Dictionary</h1>
+
+<ul>
+<li>
+<p>0fuse Console - A console with no CPU fuses burned, allowing it to boot ANY nand image for the board.</p>
+</li>
+<li>
+<p>XeLL image - a NAND image without the CE, CF and CG; Directly from CD to XeLL in boot.</p>
+</li>
+<li>
+<p>Shadowboot image - A NAND image designed for devkits, to easily reboot into an entirely new NAND image from storage. Has been reversed to allow shadowbooting on glitched retail consoles.</p>
+</li>
+<li>
+<p>Retail image - A legitimate retail NAND image</p>
+</li>
+<li>
+<p>Devkit image - A legitimate devkit NAND image</p>
+</li>
+<li>
+<p>1f - The original 4xxx kernel exploit rebooter images; Reboots into XeLL, Requires JTAG</p>
+</li>
+<li>
+<p>2f - The modern xeBuild rebooter images; Reboots into FreeBoot, Requires JTAG</p>
+</li>
+<li>
+<p>Glitch1 - A Single-CB hacked image, Requires RGH1 or JTAG</p>
+</li>
+<li>Glitch2 - A Split-CB hacked image, Requires RGH2 or 1.2</li>
+<li>
+<p>Glitch3 - A Split-CB hacked image with a intermediate CB (CB_X). We (GGX) handle this by combining it with CB_B. Requires RGH 3 or 1.3</p>
+</li>
+<li>
+<p>Glitch*m - A glitch image with emulated eFuses</p>
+</li>
+<li>
+<p>Glitch*s - A glitch image with no patchslots</p>
+</li>
+<li>
+<p>DevGl - A Devkit image that loads a retail kernel with Glitch patches</p>
+</li>
+<li>
+<p>RGL - A 50/50 image, patches retail CD to load devkit kernel</p>
+</li>
+<li>
+<p>JTAG - The Kernel SMC hack used by 1f and 2f images</p>
+</li>
+<li>
+<p>RGH 1 - The original reset glitch, for single-cb.</p>
+</li>
+<li>
+<p>RGH 2 - The newer, but worse, reset glitch for split-cb. Designed for Slims before 1.2v2 was found</p>
+</li>
+<li>
+<p>RGH 3 - The newest, chipless glitch. </p>
+</li>
+<li>
+<p>RGH 1.2 - Porting RGH 1 to Split-CB, v2 ports it to slims</p>
+</li>
+<li>
+<p>RGH 1.3 - RGH 1.2v2, but using an intermediate CB for a more reliable glitch</p>
+</li>
+<li>
+<p>xeBuild patch - 3 or 4 section Builder bootloader patch file</p>
+</li>
+<li>
+<p>Loaderpatch - 1 section Builder patch file </p>
+</li>
+<li>
+<p>RGLoader patch - Builder or Memory 1 section library patch file</p>
+</li>
+<li>CDXell patch - Memory multi section patch filesystem patch</li>
+</ul>
 
 
 
