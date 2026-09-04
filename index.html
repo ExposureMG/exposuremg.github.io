@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExposureMG</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: monospace;
+            background-color: black;
+            color: white;
+        }
+    </style>
+    <link rel="stylesheet" href="src/class.css">
+    <link rel="stylesheet" href="src/id.css">
+</head>
+
+<body id="page-body">
+    <header class="container-fluid header" id="header">
+        <div class="container-inner">
+            <a href="#" class="logo">ExposureMG</a>
+            <nav id="links" class="links">
+                <a href="https://github.com/ExposureMG">GitHub</a>
+                <a href="https://gitlab.com/ExposureMG">GitLab</a>
+                <a href="mailto:exposuremg@protonmail.com">Email</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container-fluid" id="hero">
+        <div class="container-inner">
+            <h2 class="section-title">Projects</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3 class="card-title">gxbuild3</h3>
+                    <div class="card-links">
+                        <a href="#">Source</a>
+                        <a href="#">Issues</a>
+                    </div>
+                    <p class="card-text">Xbox 360 NAND Image utility; Supports building Retail, Devkit, RGH, JTAG, and
+                        RGLoader NANDs. Wrote in C++23</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Genexis</h3>
+                    <div class="card-links">
+                        <a href="#">Source</a>
+                        <a href="#">Issues</a>
+                    </div>
+                    <p class="card-text">Cross-platform RGH/JTAG Toolkit. Supports NAND Building with gxbuild3, Flashing
+                        with FTDI2SPI, NandProMax, and xsvftool, and more. Wrote in C++ 23 and Qt6 Kirigami.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">NandProMax</h3>
+                    <div class="card-links">
+                        <a href="#">Source</a>
+                        <a href="#">Issues</a>
+                    </div>
+                    <p class="card-text">Cross-platform NAND Reading and Flashing utility. Supports LPC (JRP, NAND-X,
+                        etc), PicoFlasher, and TX DemoN. Wrote in Rust 2021.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="consoles">
+        <div class="container-inner">
+            <h2 class="section-title">Consoles</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3 class="card-title">Xbox 360 Slim E (Stingray 16MB)</h3>
+                    <div class="card-status status-for-sale">For Sale (£200)</div>
+                    <p class="card-text">Fully custom shell with RGH3, 500GB HDD, Fan LEDs, and a custom ROL.</p>
+                    <div class="image-box">
+                        <img src="assets/C1.jpg" alt="Xbox 360 Slim E (Stingray 16MB)">
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Xbox 360 Slim (Trinity 16MB)</h3>
+                    <div class="card-status status-sold">Sold (£250)</div>
+                    <p class="card-text">PhenomMod Clear Shell, Viper Triple NAND, xLume LEDs, RGH 1.2.</p>
+                    <div class="image-box">
+                        <img src="assets/T1.jpg" alt="Xbox 360 Slim (Trinity 16MB)">
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">Xbox 360 Slim (Corona 4GB)</h3>
+                    <div class="card-status status-sold">Sold (£150)</div>
+                    <p class="card-text">Fully custom shell with RGH3, 500GB HDD, Fan LEDs, and a custom ROL. 4GB MU
+                        Disabled.</p>
+                    <div class="image-box">
+                        <img src="assets/C2.jpg" alt="Xbox 360 Slim (Corona 4GB)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid" id="footer">
+        <div class="container-inner">
+            <span>© 2026 ExposureMG. All Rights Reserved.</span>
+            <span>Licensed under <a href="LICENSE">MIT</a></span>
+        </div>
+    </footer>
+</body>
+
+</html>
